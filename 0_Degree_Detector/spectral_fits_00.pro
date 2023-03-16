@@ -1,4 +1,4 @@
-;includes ;EDP
+;includes
 @amoeba_dfpmin_support
 @maged_gf
 @magpd_gf
@@ -42,13 +42,11 @@ pro spectral_fits_jmp_v2_00
   indSat = 'm03'
   fullSatName = 'METOP03'
   
-  ;dy = 0.2 ;not sure what dy should be for POES. This is the Guassian relative error. Probably won't change, but will ask Juan. ;EDP
   dy = 0.4
   ;   dy = 0.25
   ;   dt = 60.0
   ;   dt = 1.0
   dt = 16.0 ;using 16 second data for POES ;EDP
-  ;   amoeba_dfpmin_support ;This function had everything commented out in it, so I don't think it is necessary. ;EDP
 
   ; MAGED geometrical factors and weighting functions for spectral inversion
   geomfac_ideal = 0.01 ; cm^2 sr ;still true in POES
@@ -56,7 +54,6 @@ pro spectral_fits_jmp_v2_00
   ;MAGEDEnergyIdeal = [40., 75., 150., 275., 475.] ;same as above comment ;EDP
 
   ;maged_weighting_function
-  ;need to create new function that creates a POES weighting function as in old retrieval code.
   ;GEBowtie = [0.212, 0.487, 1.41, 2.72, 4.41]
   ;MAGEDEnergyBowtie = [41.0, 69.1, 141.6, 247.0, 504.7]
   temp = readResponse('Proton','Proton',minEnergy,maxProtonEnergy,maxElectronEnergy,interpLevel)
@@ -118,31 +115,18 @@ pro spectral_fits_jmp_v2_00
   ;Create loop of days
   fdoydate = JULDAY(fix(date[1]),fix(date[2]),fix(date[0]))
   enddoydate = JULDAY(fix(endDate[1]),fix(endDate[2]),fix(endDate[0]))
-  ;stop
   endOfYear = 1
   noClobber = 1
   oneDay = 0 ;if oneDay then one day is run only instead of a full year.
-  ;while endOfYear do begin
+
   while fdoydate le enddoydate do begin
 
     Wpl_total = []
     wRM_total = []
     wDM_total = []
     wEE_total = []
-    ; restore save files
-    ;for now I will only restore one test file. I will need to change this into using a start and end date and using all the files, and getting them from the web if necessray.
-    print, date
 
-    ;check to say if this file exists assuming we don't want to overwrite
-    ;if noClobber then begin
-    ; exists = FILE_TEST('/export/home/pecked/MEPED/data/'+'POES_combinedSpectrum_'+indSat+'_'+STRING(angle,FORMAT='(I2.2)')+'_'+date[0]+date[1]+date[2]+'.nc')
-    ; if exists then begin
-    ;   print,'This day was already processed.'
-    ;   date = advanceDate(fdoydate)
-    ;   continue
-    ; endif
-    ;endif
- ;   stop
+   print, date
     
  ;--------------------------------------------------------------------------------------------
  ; Read in count data from MEPED   --- As of 2015 the data format changed
