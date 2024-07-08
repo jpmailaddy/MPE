@@ -1,0 +1,1 @@
+The code provided here can be utilized to generate electron fluxes and estimate precipitating electron fluxes from the POES/METOP satellites using the MEPED instruments. It is based off of Pettit et al., (2021) and Peck et al., (2015). The code is currently written in IDL. Please contact joshua.pettit at colorado.edu for instructions on how best to use this code. 
